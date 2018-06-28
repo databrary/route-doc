@@ -1,8 +1,8 @@
 # route-doc
 Documentation of internal routes using ReDoc
 
-1. Run both files on localhost
+1. Run both files on localhost (node as an example)
 
-   Ex. npm install http-server -g
-   
+       npm install http-server -g
+
        http-server [path to route-doc] -p 3000
