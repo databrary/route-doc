@@ -7,6 +7,10 @@
    },
    "tags":[  
       {  
+         "name":"login/register",
+         "description":"user"
+      },
+      {  
          "name":"party",
          "description":"user"
       },
@@ -20,149 +24,51 @@
       "http"
    ],
    "paths":{  
-      "/party":{  
-         "post":{  
+      "/api/register":{
+         "post":{
             "tags":[  
-               "party"
+               "login/register"
             ],
-            "summary":"Add a new party to the store",
-            "description":"",
-            "operationId":"addparty",
-            "consumes":[  
-               "application/json",
-               "application/xml"
-            ],
+            "summary":"Post registrant's info",
+            "description":"Post registrant's info",
+            "operationId":"postRegistrant",
             "produces":[  
-               "application/xml",
                "application/json"
             ],
             "parameters":[  
                {  
                   "in":"body",
                   "name":"body",
-                  "description":"party object that needs to be added to the store",
+                  "description":"Post registrant",
                   "required":true,
                   "schema":{  
-                     "$ref":"#/definitions/party"
+                     "$ref":"#/definitions/registrant"
                   }
-               }
-            ],
-            "responses":{  
-               "405":{  
-                  "description":"Invalid input"
-               }
-            }
-         },
-         "put":{  
-            "tags":[  
-               "party"
-            ],
-            "summary":"Update an existing party",
-            "description":"",
-            "operationId":"updateparty",
-            "consumes":[  
-               "application/json",
-               "application/xml"
-            ],
-            "produces":[  
-               "application/xml",
-               "application/json"
-            ],
-            "parameters":[  
-               {  
-                  "in":"body",
-                  "name":"body",
-                  "description":"party object that needs to be added to the store",
-                  "required":true,
-                  "schema":{  
-                     "$ref":"#/definitions/party"
-                  }
-               }
-            ],
-            "responses":{  
-               "400":{  
-                  "description":"Invalid ID supplied"
-               },
-               "404":{  
-                  "description":"party not found"
-               },
-               "405":{  
-                  "description":"Validation exception"
-               }
-            }
-         }
-      },
-      "/party/findByStatus":{  
-         "get":{  
-            "tags":[  
-               "party"
-            ],
-            "summary":"Finds partys by status",
-            "description":"Multiple status values can be provided with comma separated strings",
-            "operationId":"findpartysByStatus",
-            "produces":[  
-               "application/xml",
-               "application/json"
-            ],
-            "parameters":[  
-               {  
-                  "name":"status",
-                  "in":"query",
-                  "description":"Status values that need to be considered for filter",
-                  "required":true,
-                  "type":"array",
-                  "items":{  
-                     "type":"string",
-                     "enum":[  
-                        "available",
-                        "pending",
-                        "sold"
-                     ],
-                     "default":"available"
-                  },
-                  "collectionFormat":"multi"
                }
             ],
             "responses":{  
                "200":{  
                   "description":"successful operation",
                   "schema":{  
-                     "type":"array",
-                     "items":{  
-                        "$ref":"#/definitions/party"
-                     }
-                  }
-               },
-               "400":{  
-                  "description":"Invalid status value"
-               }
-            }
-         }
-      },
-      "/party/findByTags":{  
-         "get":{  
-            "tags":[  
-               "party"
-            ],
-            "summary":"Finds partys by tags",
-            "description":"Muliple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
-            "operationId":"findpartysByTags",
-            "produces":[  
-               "application/xml",
-               "application/json"
-            ],
-            "parameters":[  
-               {  
-                  "name":"tags",
-                  "in":"query",
-                  "description":"Tags to filter by",
-                  "required":true,
-                  "type":"array",
-                  "items":{  
                      "type":"string"
-                  },
-                  "collectionFormat":"multi"
+                  }
+               },
+               "400":{  
+                  "description":"Error"
                }
+            }
+         }
+      },
+      "/api/volume":{  
+         "get":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Find all volumes",
+            "description":"Return all volumes",
+            "operationId":"findAllVolumes",
+            "produces":[  
+               "application/json"
             ],
             "responses":{  
                "200":{  
@@ -170,179 +76,45 @@
                   "schema":{  
                      "type":"array",
                      "items":{  
-                        "$ref":"#/definitions/party"
+                        "$ref":"#/definitions/volume"
                      }
                   }
                },
                "400":{  
-                  "description":"Invalid tag value"
+                  "description":"Error"
                }
-            },
-            "deprecated":true
+            }
          }
       },
-      "/party/{partyId}":{  
+      "/api/volume/{volumeid}":{  
          "get":{  
             "tags":[  
-               "party"
+               "volume"
             ],
-            "summary":"Find party by ID",
-            "description":"Returns a single party",
-            "operationId":"getpartyById",
+            "summary":"Find volume by Id",
+            "description":"Return a volume by ID",
+            "operationId":"findVolumeById",
             "produces":[  
-               "application/xml",
                "application/json"
             ],
             "parameters":[  
                {  
-                  "name":"partyId",
+                  "name":"volumeid",
                   "in":"path",
-                  "description":"ID of party to return",
+                  "description":"ID of the volume",
                   "required":true,
-                  "type":"integer",
-                  "format":"int64"
+                  "type":"string"
                }
             ],
             "responses":{  
                "200":{  
                   "description":"successful operation",
                   "schema":{  
-                     "$ref":"#/definitions/party"
+                     "$ref":"#/definitions/volume"
                   }
                },
                "400":{  
-                  "description":"Invalid ID supplied"
-               },
-               "404":{  
-                  "description":"party not found"
-               }
-            }
-         },
-         "post":{  
-            "tags":[  
-               "party"
-            ],
-            "summary":"Updates a party in the store with form data",
-            "description":"",
-            "operationId":"updatepartyWithForm",
-            "consumes":[  
-               "application/x-www-form-urlencoded"
-            ],
-            "produces":[  
-               "application/xml",
-               "application/json"
-            ],
-            "parameters":[  
-               {  
-                  "name":"partyId",
-                  "in":"path",
-                  "description":"ID of party that needs to be updated",
-                  "required":true,
-                  "type":"integer",
-                  "format":"int64"
-               },
-               {  
-                  "name":"name",
-                  "in":"formData",
-                  "description":"Updated name of the party",
-                  "required":false,
-                  "type":"string"
-               },
-               {  
-                  "name":"status",
-                  "in":"formData",
-                  "description":"Updated status of the party",
-                  "required":false,
-                  "type":"string"
-               }
-            ],
-            "responses":{  
-               "405":{  
-                  "description":"Invalid input"
-               }
-            }
-         },
-         "delete":{  
-            "tags":[  
-               "party"
-            ],
-            "summary":"Deletes a party",
-            "description":"",
-            "operationId":"deleteparty",
-            "produces":[  
-               "application/xml",
-               "application/json"
-            ],
-            "parameters":[  
-               {  
-                  "name":"api_key",
-                  "in":"header",
-                  "required":false,
-                  "type":"string"
-               },
-               {  
-                  "name":"partyId",
-                  "in":"path",
-                  "description":"party id to delete",
-                  "required":true,
-                  "type":"integer",
-                  "format":"int64"
-               }
-            ],
-            "responses":{  
-               "400":{  
-                  "description":"Invalid ID supplied"
-               },
-               "404":{  
-                  "description":"party not found"
-               }
-            }
-         }
-      },
-      "/party/{partyId}/uploadImage":{  
-         "post":{  
-            "tags":[  
-               "party"
-            ],
-            "summary":"uploads an image",
-            "description":"",
-            "operationId":"uploadFile",
-            "consumes":[  
-               "multipart/form-data"
-            ],
-            "produces":[  
-               "application/json"
-            ],
-            "parameters":[  
-               {  
-                  "name":"partyId",
-                  "in":"path",
-                  "description":"ID of party to update",
-                  "required":true,
-                  "type":"integer",
-                  "format":"int64"
-               },
-               {  
-                  "name":"additionalMetadata",
-                  "in":"formData",
-                  "description":"Additional data to pass to server",
-                  "required":false,
-                  "type":"string"
-               },
-               {  
-                  "name":"file",
-                  "in":"formData",
-                  "description":"file to upload",
-                  "required":false,
-                  "type":"file"
-               }
-            ],
-            "responses":{  
-               "200":{  
-                  "description":"successful operation",
-                  "schema":{  
-                     "$ref":"#/definitions/ApiResponse"
-                  }
+                  "description":"Error"
                }
             }
          }
@@ -351,172 +123,69 @@
    "securityDefinitions":{  
    },
    "definitions":{  
-      "Order":{  
+      "volume":{  
          "type":"object",
          "properties":{  
             "id":{  
-               "type":"integer",
-               "format":"int64"
+               "type":"integer"
             },
-            "partyId":{  
-               "type":"integer",
-               "format":"int64"
-            },
-            "quantity":{  
-               "type":"integer",
-               "format":"int32"
-            },
-            "shipDate":{  
-               "type":"string",
-               "format":"date-time"
-            },
-            "status":{  
-               "type":"string",
-               "description":"Order Status",
-               "enum":[  
-                  "placed",
-                  "approved",
-                  "delivered"
-               ]
-            },
-            "complete":{  
-               "type":"boolean",
-               "default":false
-            }
-         },
-         "xml":{  
-            "name":"Order"
-         }
-      },
-      "User":{  
-         "type":"object",
-         "properties":{  
-            "id":{  
-               "type":"integer",
-               "format":"int64"
-            },
-            "username":{  
+            "alias":{  
                "type":"string"
             },
-            "firstName":{  
+            "body":{  
                "type":"string"
             },
-            "lastName":{  
+            "creation":{  
                "type":"string"
             },
-            "email":{  
+            "doi":{  
                "type":"string"
-            },
-            "password":{  
-               "type":"string"
-            },
-            "phone":{  
-               "type":"string"
-            },
-            "userStatus":{  
-               "type":"integer",
-               "format":"int32",
-               "description":"User Status"
-            }
-         },
-         "xml":{  
-            "name":"User"
-         }
-      },
-      "Category":{  
-         "type":"object",
-         "properties":{  
-            "id":{  
-               "type":"integer",
-               "format":"int64"
             },
             "name":{  
                "type":"string"
+            },
+            "owners":{
+               "type": "array",
+               "items": {
+                  "$ref":"#/definitions/owner"
+               } 
+            },
+            "permission":{  
+               "type":"integer"
+            },
+            "publicsharefull":{  
+               "type":"boolean"
+            },
+            "publicaccess":{  
+               "type":"string"
             }
-         },
-         "xml":{  
-            "name":"Category"
          }
       },
-      "Tag":{  
+      "owner":{
          "type":"object",
-         "properties":{  
+         "properties":{ 
+            "name": {
+               "type":"string"
+            },
             "id":{  
-               "type":"integer",
-               "format":"int64"
-            },
-            "name":{  
-               "type":"string"
+               "type":"integer"
             }
-         },
-         "xml":{  
-            "name":"Tag"
          }
       },
-      "party":{  
+      "registrant":{
          "type":"object",
-         "required":[  
-            "name",
-            "photoUrls"
-         ],
-         "properties":{  
-            "id":{  
-               "type":"integer",
-               "format":"int64"
-            },
-            "category":{  
-               "$ref":"#/definitions/Category"
-            },
-            "name":{  
-               "type":"string",
-               "example":"doggie"
-            },
-            "photoUrls":{  
-               "type":"array",
-               "xml":{  
-                  "name":"photoUrl",
-                  "wrapped":true
-               },
-               "items":{  
-                  "type":"string"
-               }
-            },
-            "tags":{  
-               "type":"array",
-               "xml":{  
-                  "name":"tag",
-                  "wrapped":true
-               },
-               "items":{  
-                  "$ref":"#/definitions/Tag"
-               }
-            },
-            "status":{  
-               "type":"string",
-               "description":"party status in the store",
-               "enum":[  
-                  "available",
-                  "pending",
-                  "sold"
-               ]
-            }
-         },
-         "xml":{  
-            "name":"party"
-         }
-      },
-      "ApiResponse":{  
-         "type":"object",
-         "properties":{  
-            "code":{  
-               "type":"integer",
-               "format":"int32"
-            },
-            "type":{  
+         "properties":{ 
+            "prename": {
                "type":"string"
             },
-            "message":{  
+            "sortname": {
                "type":"string"
+            },
+            "email": {
+               "type":"string"
+            },
+            "agreement":{  
+               "type":"boolean"
             }
          }
       }
