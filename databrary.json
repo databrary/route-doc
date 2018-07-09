@@ -240,6 +240,148 @@
                   "description":"Error"
                }
             }
+         },
+         "post":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Post party info by Id",
+            "description":"Post party info by ID",
+            "operationId":"postpartyById",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"partyid",
+                  "in":"path",
+                  "description":"ID of the party",
+                  "required":true,
+                  "type":"string"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post party info",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{  
+                        "affiliation":{  
+                           "type":"string"
+                        },
+                        "prename":{  
+                           "type":"string"
+                        },
+                        "sortname":{  
+                           "type":"string"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/profile"
+                  }
+               },
+               "400":{  
+                  "description":"Error"
+               }
+            }
+         }
+      },
+      "/api/party/{partyid}/authorize/{affiliateid}":{  
+         "post":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Find party by Id",
+            "description":"Return a party by ID",
+            "operationId":"findpartyById",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"partyid",
+                  "in":"path",
+                  "description":"ID of the party",
+                  "required":true,
+                  "type":"string"
+               },
+               {  
+                  "name":"affiliateid",
+                  "in":"path",
+                  "description":"ID of the affiliate",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/getparty"
+                  }
+               },
+               "400":{  
+                  "description":"Error"
+               }
+            }
+         },
+         "post":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Post party info by Id",
+            "description":"Post party info by ID",
+            "operationId":"postpartyById",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"partyid",
+                  "in":"path",
+                  "description":"ID of the party",
+                  "required":true,
+                  "type":"string"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post party info",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{  
+                        "affiliation":{  
+                           "type":"string"
+                        },
+                        "prename":{  
+                           "type":"string"
+                        },
+                        "sortname":{  
+                           "type":"string"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/profile"
+                  }
+               },
+               "400":{  
+                  "description":"Error"
+               }
+            }
          }
       },
       "/api/volume":{  
@@ -260,6 +402,42 @@
                      "type":"array",
                      "items":{  
                         "$ref":"#/definitions/volume"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error"
+               }
+            }
+         },
+         "post":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Create volume",
+            "description":"Create volume",
+            "operationId":"createvolume",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Create volume",
+                  "required":true,
+                  "schema":{  
+                     "$ref":"#/definitions/createvolume"
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{  
+                        "$ref":"#/definitions/postvolumeresult"
                      }
                   }
                },
@@ -294,6 +472,46 @@
                   "description":"successful operation",
                   "schema":{  
                      "$ref":"#/definitions/volume"
+                  }
+               },
+               "400":{  
+                  "description":"Error"
+               }
+            }
+         },
+         "post":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Post volume by Id",
+            "description":"Post a volume by ID",
+            "operationId":"postVolumeById",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post volume info",
+                  "required":true,
+                  "schema":{  
+                     "$ref":"#/definitions/postvolume"
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/postvolumeresult"
                   }
                },
                "400":{  
@@ -341,6 +559,88 @@
             },
             "publicaccess":{  
                "type":"string"
+            }
+         }
+      },
+      "postvolume":{  
+         "type":"object",
+         "properties":{  
+            "citation":{  
+               "type":"object",
+               "properties":{
+                  "head": {
+                     "type":"string"
+                  }
+               }
+            },
+            "body":{  
+               "type":"string"
+            },
+            "name":{  
+               "type":"string"
+            },
+            "published":{  
+               "type":"boolean"
+            }
+         }
+      },
+      "createvolume":{  
+         "type":"object",
+         "properties":{  
+            "owner":{  
+               "type":"integer"
+            },
+            "citation":{  
+               "type":"object",
+               "properties":{
+                  "head": {
+                     "type":"string"
+                  }
+               }
+            },
+            "body":{  
+               "type":"string"
+            },
+            "name":{  
+               "type":"string"
+            },
+            "published":{  
+               "type":"boolean"
+            }
+         }
+      },
+      "postvolumeresult":{  
+         "type":"object",
+         "properties":{  
+            "id":{  
+               "type":"integer"
+            },
+            "citation":{  
+               "type":"string"
+            },
+            "body":{  
+               "type":"string"
+            },
+            "creation":{  
+               "type":"string"
+            },
+            "doi":{  
+               "type":"string"
+            },
+            "name":{  
+               "type":"string"
+            },
+            "owners":{
+               "type": "array",
+               "items": {
+                  "$ref":"#/definitions/owner"
+               } 
+            },
+            "permission":{  
+               "type":"integer"
+            },
+            "publicsharefull":{  
+               "type":"boolean"
             }
          }
       },
