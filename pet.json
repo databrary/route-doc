@@ -59,14 +59,197 @@
             }
          }
       },
+      "/api/user/login":{
+         "post":{
+            "tags":[  
+               "login/register"
+            ],
+            "summary":"Post user's login info",
+            "description":"Post user's login info",
+            "operationId":"postuserLogin",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post user login",
+                  "required":true,
+                  "schema":{  
+                     "$ref":"#/definitions/userlogin"
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{   
+                     "$ref":"#/definitions/user"
+                  }
+               },
+               "400":{  
+                  "description":"Error"
+               }
+            }
+         }
+      },
+      "/api/user/password":{
+         "post":{
+            "tags":[  
+               "login/register"
+            ],
+            "summary":"Post password reset request",
+            "description":"Post password reset request",
+            "operationId":"postuserPassword",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post password reset email",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{  
+                        "email":{  
+                           "type":"string"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"string"
+                  }
+               },
+               "400":{  
+                  "description":"Error"
+               }
+            }
+         }
+      },
+      "/api/user/logout":{
+         "post":{
+            "tags":[  
+               "login/register"
+            ],
+            "summary":"Post logout",
+            "description":"Post logout",
+            "operationId":"postuserLogout",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{   
+                     "$ref":"#/definitions/userlogout"
+                  }
+               },
+               "400":{  
+                  "description":"Error"
+               }
+            }
+         }
+      },
+      "/api/profile":{
+         "get":{
+            "tags":[  
+               "party"
+            ],
+            "summary":"Get user profile",
+            "description":"Get user profile",
+            "operationId":"getProfile",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{   
+                     "$ref":"#/definitions/profile",
+                  }
+               },
+               "400":{  
+                  "description":"Error"
+               }
+            }
+         }
+      },
+      "/api/party":{  
+         "get":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Get all parties",
+            "description":"Return all parties",
+            "operationId":"getAllParties",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{  
+                        "$ref":"#/definitions/party"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error"
+               }
+            }
+         }
+      },
+      "/api/party/{partyid}":{  
+         "get":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Find party by Id",
+            "description":"Return a party by ID",
+            "operationId":"findpartyById",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"partyid",
+                  "in":"path",
+                  "description":"ID of the party",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/getparty"
+                  }
+               },
+               "400":{  
+                  "description":"Error"
+               }
+            }
+         }
+      },
       "/api/volume":{  
          "get":{  
             "tags":[  
                "volume"
             ],
-            "summary":"Find all volumes",
+            "summary":"Get all volumes",
             "description":"Return all volumes",
-            "operationId":"findAllVolumes",
+            "operationId":"getAllVolumes",
             "produces":[  
                "application/json"
             ],
@@ -188,7 +371,125 @@
                "type":"boolean"
             }
          }
+      },
+      "userlogin":{
+         "type":"object",
+         "properties":{ 
+            "email": {
+               "type":"string"
+            },
+            "password":{  
+               "type":"string"
+            }
+         }
+      },
+      "userlogout":{
+         "type":"object",
+         "properties":{ 
+            "id":{  
+               "type":"integer"
+            },
+            "authorization":{  
+               "type":"integer"
+            },
+            "institution": {
+               "type":"string"
+            },
+            "sortname":{  
+               "type":"string"
+            }
+         }
+      },
+      "getparty":{
+         "type":"object",
+         "properties":{ 
+            "id":{  
+               "type":"integer"
+            },
+            "permission":{  
+               "type":"integer"
+            },
+            "institution": {
+               "type":"string"
+            },
+            "sortname":{  
+               "type":"string"
+            }
+         }
+      },
+      "party":{
+         "type":"object",
+         "properties":{ 
+            "id":{  
+               "type":"integer"
+            },
+            "affiliation": {
+               "type":"string"
+            },
+            "email": {
+               "type":"string"
+            },
+            "prename": {
+               "type":"string"
+            },
+            "sortname":{  
+               "type":"string"
+            }
+         }
+      },
+      "profile":{
+         "type":"object",
+         "properties":{ 
+            "id":{  
+               "type":"integer"
+            },
+            "affiliation": {
+               "type":"string"
+            },
+            "email": {
+               "type":"string"
+            },
+            "prename": {
+               "type":"string"
+            },
+            "permission":{  
+               "type":"integer"
+            },
+            "sortname":{  
+               "type":"string"
+            }
+         }
+      },
+      "user":{
+         "type":"object",
+         "properties":{ 
+            "id":{  
+               "type":"integer"
+            },
+            "authorization":{  
+               "type":"integer"
+            },
+            "permission":{  
+               "type":"integer"
+            },
+            "affiliation": {
+               "type":"string"
+            },
+            "csverf":{  
+               "type":"string"
+            },
+            "email": {
+               "type":"string"
+            },
+            "prename": {
+               "type":"string"
+            },
+            "sortname":{  
+               "type":"string"
+            }
+         }
       }
+
    },
    "externalDocs":{  
       "description":"Find out more about Swagger",
