@@ -593,18 +593,26 @@
                "type":"object",
                "properties":{
                   "head": {
-                     "type":"string"
+                     "type":"string",
+                     "example":""
                   }
                }
             },
+            "alias":{  
+               "type":"string",
+               "example":"pilot"
+            },
             "body":{  
-               "type":"string"
+               "type":"string",
+               "example":"Databrary is an open data library for developmental science. Share video, audio, and related metadata."
             },
             "name":{  
-               "type":"string"
+               "type":"string",
+               "example":"Databrary"
             },
             "published":{  
-               "type":"boolean"
+               "type":"boolean",
+               "example":true
             }
          }
       },
@@ -637,22 +645,28 @@
          "type":"object",
          "properties":{  
             "id":{  
-               "type":"integer"
+               "type":"integer",
+               "example":2
             },
             "citation":{  
-               "type":"string"
+               "type":"object",
+               "example":null
             },
             "body":{  
-               "type":"string"
+               "type":"string",
+               "example":"Databrary is an open data library for developmental science. Share video, audio, and related metadata."
             },
             "creation":{  
-               "type":"string"
+               "type":"string",
+               "example":"2018-07-09T17:15:49.694977Z"
             },
             "doi":{  
-               "type":"string"
+               "type":"string",
+               "example":"10.17910/B7159Z"
             },
             "name":{  
-               "type":"string"
+               "type":"string",
+               "example":"Databrary"
             },
             "owners":{
                "type": "array",
@@ -661,10 +675,12 @@
                } 
             },
             "permission":{  
-               "type":"integer"
+               "type":"integer",
+               "example":5
             },
             "publicsharefull":{  
-               "type":"boolean"
+               "type":"boolean",
+               "example":true
             }
          }
       },
