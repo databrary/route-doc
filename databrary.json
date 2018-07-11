@@ -50,8 +50,12 @@
                "200":{  
                   "description":"successful operation",
                   "schema":{  
-                     "type":"string"
-                  }
+                     "type":"string",
+                     "example":"Your confirmation email has been sent to 'jsmith@university.edu'."
+                  },
+                  "produces":[
+                     "text/plain"
+                  ]
                },
                "400":{  
                   "description":"Error"
@@ -666,13 +670,16 @@
          "type":"object",
          "properties":{ 
             "prename": {
-               "type":"string"
+               "type":"string",
+               "example":"Jane"
             },
             "sortname": {
-               "type":"string"
+               "type":"string",
+               "example":"Smith"
             },
             "email": {
-               "type":"string"
+               "type":"string",
+               "example":"jsmith@university.edu"
             },
             "agreement":{  
                "type":"boolean"
