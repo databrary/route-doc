@@ -119,7 +119,8 @@
                      "type":"object",
                      "properties":{  
                         "email":{  
-                           "type":"string"
+                           "type":"string",
+                           "example":"jsmith@university.edu"
                         }
                      }
                   }
@@ -129,7 +130,8 @@
                "200":{  
                   "description":"successful operation",
                   "schema":{  
-                     "type":"string"
+                     "type":"string",
+                     "example":"Your password reset information has been sent to 'jsmith@university.edu'."
                   }
                },
                "400":{  
@@ -272,13 +274,16 @@
                      "type":"object",
                      "properties":{  
                         "affiliation":{  
-                           "type":"string"
+                           "type":"string",
+                           "example":"jsmith@university.edu"
                         },
                         "prename":{  
-                           "type":"string"
+                           "type":"string",
+                           "example":"Jane"
                         },
                         "sortname":{  
-                           "type":"string"
+                           "type":"string",
+                           "example":"Smith"
                         }
                      }
                   }
@@ -332,13 +337,16 @@
                      "type":"object",
                      "properties":{  
                         "expires":{  
-                           "type":"string"
+                           "type":"string",
+                           "example":"2020-07-09"
                         },
                         "member":{  
-                           "type":"integer"
+                           "type":"integer",
+                           "example":"2"
                         },
                         "site":{  
-                           "type":"integer"
+                           "type":"integer",
+                           "example":"3"
                         }
                      }
                   }
@@ -386,7 +394,7 @@
                "200":{  
                   "description":"successful operation",
                   "schema":{  
-                     "$ref":"#/definitions/party"
+                     "$ref":"#/definitions/affiliate"
                   }
                },
                "400":{  
@@ -690,10 +698,12 @@
          "type":"object",
          "properties":{ 
             "email": {
-               "type":"string"
+               "type":"string",
+               "example":"jsmith@university.edu"
             },
             "password":{  
-               "type":"string"
+               "type":"string",
+               "example":"strongpassword"
             }
          }
       },
@@ -701,16 +711,20 @@
          "type":"object",
          "properties":{ 
             "id":{  
-               "type":"integer"
+               "type":"integer",
+               "example":"-1"
             },
             "authorization":{  
-               "type":"integer"
+               "type":"integer",
+               "example":"0"
             },
             "institution": {
-               "type":"string"
+               "type":"boolean",
+               "example":"true"
             },
             "sortname":{  
-               "type":"string"
+               "type":"string",
+               "example":"Nobody"
             }
          }
       },
@@ -718,16 +732,28 @@
          "type":"object",
          "properties":{ 
             "id":{  
-               "type":"integer"
+               "type":"integer",
+               "example":"7"
             },
-            "permission":{  
-               "type":"integer"
+            "affiliation": {
+               "type":"string",
+               "example":"New York University"
             },
-            "institution": {
-               "type":"string"
+            "email": {
+               "type":"string",
+               "example":"jsmith@university.edu"
+            },
+            "prename": {
+               "type":"string",
+               "example":"Jane"
             },
             "sortname":{  
-               "type":"string"
+               "type":"string",
+               "example":"Smith"
+            },
+            "permission":{  
+               "type":"integer",
+               "example":"5"
             }
          }
       },
@@ -735,16 +761,19 @@
          "type":"object",
          "properties":{  
             "expires":{  
-               "type":"string"
+               "type":"string",
+               "example":"2020-07-09"
             },
             "member":{  
-               "type":"integer"
+               "type":"integer",
+               "example":"2"
             },
             "site":{  
-               "type":"integer"
+               "type":"integer",
+               "example":"3"
             },
             "party":{
-               "$ref":"#/definitions/party"
+               "$ref":"#/definitions/affiliate"
             },
          }
       },
@@ -752,19 +781,49 @@
          "type":"object",
          "properties":{ 
             "id":{  
-               "type":"integer"
+               "type":"integer",
+               "example":"7"
             },
             "affiliation": {
-               "type":"string"
+               "type":"string",
+               "example":"New York University"
             },
             "email": {
-               "type":"string"
+               "type":"string",
+               "example":"jsmith@university.edu"
             },
             "prename": {
-               "type":"string"
+               "type":"string",
+               "example":"Jane"
             },
             "sortname":{  
-               "type":"string"
+               "type":"string",
+               "example":"Smith"
+            }
+         }
+      },
+      "affiliate":{
+         "type":"object",
+         "properties":{ 
+            "id":{  
+               "type":"integer",
+               "example":"3"
+            },
+            "affiliation": {
+               "type":"string",
+               "example":"New York University"
+            },
+            "email": {
+               "type":"string",
+               "example":"llee@university.edu"
+            },
+            "prename": {
+               "type":"string",
+               "example":"Lisa"
+            },
+            "sortname":{  
+               "type":"string",
+               "example":"Lee"
             }
          }
       },
@@ -772,22 +831,28 @@
          "type":"object",
          "properties":{ 
             "id":{  
-               "type":"integer"
+               "type":"integer",
+               "example":"7"
             },
             "affiliation": {
-               "type":"string"
+               "type":"string",
+               "example":"New York University"
             },
             "email": {
-               "type":"string"
+               "type":"string",
+               "example":"jsmith@university.edu"
             },
             "prename": {
-               "type":"string"
+               "type":"string",
+               "example":"Jane"
             },
             "permission":{  
-               "type":"integer"
+               "type":"integer",
+               "example":"5"
             },
             "sortname":{  
-               "type":"string"
+               "type":"string",
+               "example":"Smith"
             }
          }
       },
@@ -795,28 +860,36 @@
          "type":"object",
          "properties":{ 
             "id":{  
-               "type":"integer"
+               "type":"integer",
+               "example":"7"
             },
             "authorization":{  
-               "type":"integer"
+               "type":"integer",
+               "example":""
             },
             "permission":{  
-               "type":"integer"
+               "type":"integer",
+               "example":"5"
             },
             "affiliation": {
-               "type":"string"
+               "type":"string",
+               "example":"New York University"
             },
             "csverf":{  
-               "type":"string"
+               "type":"string",
+               "example":"QxNXAduisOc_czDG"
             },
             "email": {
-               "type":"string"
+               "type":"string",
+               "example":"jsmith@university.edu"
             },
             "prename": {
-               "type":"string"
+               "type":"string",
+               "example":"Jane"
             },
             "sortname":{  
-               "type":"string"
+               "type":"string",
+               "example":"Smith"
             }
          }
       }
