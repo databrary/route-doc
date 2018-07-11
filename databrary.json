@@ -547,22 +547,28 @@
          "type":"object",
          "properties":{  
             "id":{  
-               "type":"integer"
+               "type":"integer",
+               "example":2
             },
             "alias":{  
-               "type":"string"
+               "type":"string",
+               "example":"pilot"
             },
             "body":{  
-               "type":"string"
+               "type":"string",
+               "example":"Databrary is an open data library for developmental science. Share video, audio, and related metadata."
             },
             "creation":{  
-               "type":"string"
+               "type":"string",
+               "example":"2018-07-09T17:15:49.694977Z"
             },
             "doi":{  
-               "type":"string"
+               "type":"string",
+               "example":"10.17910/B7159Z"
             },
             "name":{  
-               "type":"string"
+               "type":"string",
+               "example":"Databrary"
             },
             "owners":{
                "type": "array",
@@ -571,13 +577,12 @@
                } 
             },
             "permission":{  
-               "type":"integer"
+               "type":"integer",
+               "example":5
             },
             "publicsharefull":{  
-               "type":"boolean"
-            },
-            "publicaccess":{  
-               "type":"string"
+               "type":"boolean",
+               "example":true
             }
          }
       },
@@ -667,10 +672,12 @@
          "type":"object",
          "properties":{ 
             "name": {
-               "type":"string"
+               "type":"string",
+               "example":"Smith, Jane"
             },
             "id":{  
-               "type":"integer"
+               "type":"integer",
+               "example":"7"
             }
          }
       },
@@ -712,15 +719,15 @@
          "properties":{ 
             "id":{  
                "type":"integer",
-               "example":"-1"
+               "example":-1
             },
             "authorization":{  
                "type":"integer",
-               "example":"0"
+               "example":0
             },
             "institution": {
                "type":"boolean",
-               "example":"true"
+               "example":true
             },
             "sortname":{  
                "type":"string",
@@ -733,7 +740,7 @@
          "properties":{ 
             "id":{  
                "type":"integer",
-               "example":"7"
+               "example":7
             },
             "affiliation": {
                "type":"string",
@@ -753,7 +760,7 @@
             },
             "permission":{  
                "type":"integer",
-               "example":"5"
+               "example":5
             }
          }
       },
@@ -766,11 +773,11 @@
             },
             "member":{  
                "type":"integer",
-               "example":"2"
+               "example":2
             },
             "site":{  
                "type":"integer",
-               "example":"3"
+               "example":3
             },
             "party":{
                "$ref":"#/definitions/affiliate"
@@ -782,7 +789,7 @@
          "properties":{ 
             "id":{  
                "type":"integer",
-               "example":"7"
+               "example":7
             },
             "affiliation": {
                "type":"string",
@@ -807,7 +814,7 @@
          "properties":{ 
             "id":{  
                "type":"integer",
-               "example":"3"
+               "example":3
             },
             "affiliation": {
                "type":"string",
@@ -832,7 +839,7 @@
          "properties":{ 
             "id":{  
                "type":"integer",
-               "example":"7"
+               "example":7
             },
             "affiliation": {
                "type":"string",
@@ -848,7 +855,7 @@
             },
             "permission":{  
                "type":"integer",
-               "example":"5"
+               "example":5
             },
             "sortname":{  
                "type":"string",
@@ -861,15 +868,15 @@
          "properties":{ 
             "id":{  
                "type":"integer",
-               "example":"7"
+               "example":7
             },
             "authorization":{  
                "type":"integer",
-               "example":""
+               "example":5
             },
             "permission":{  
                "type":"integer",
-               "example":"5"
+               "example":5
             },
             "affiliation": {
                "type":"string",
