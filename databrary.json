@@ -309,8 +309,8 @@
             "tags":[  
                "party"
             ],
-            "summary":"Find party by Id",
-            "description":"Return a party by ID",
+            "summary":"Get party by Id",
+            "description":"Get party by ID",
             "operationId":"getParty",
             "produces":[  
                "application/json"
@@ -399,6 +399,46 @@
                }
             }
          }
+      },
+      "/api/party/{partyid}/activity":{  
+         "get":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Get party activity by Id",
+            "description":"Get party activity by ID",
+            "operationId":"getPartyActivity",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"partyid",
+                  "in":"path",
+                  "description":"ID of the party",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{  
+                        "$ref":"#/definitions/getpartyactivity"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
       },
       "/api/party/{partyid}/authorize/{affiliateid}":{  
          "post":{  
@@ -585,8 +625,8 @@
             "tags":[  
                "volume"
             ],
-            "summary":"Find volume by Id",
-            "description":"Return a volume by ID",
+            "summary":"Get volume by Id",
+            "description":"Get volume by ID",
             "operationId":"getVolume",
             "produces":[  
                "application/json"
@@ -1077,7 +1117,47 @@
                "description":"Last name"
             }
          }
-      }
+      },
+      "getpartyactivity":{
+         "type":"object",
+         "properties":{ 
+            "expires":{
+               "type":"string",
+               "example":"2019-07-09T12:00:10Z"
+            },
+            "action":{
+               "type":"string",
+               "example":"add"
+            },
+            "ip":{
+               "type":"string",
+               "example":"128.122.236.249"
+            },
+            "user":{
+               "type":"integer",
+               "example":7
+            },
+            "when":{
+               "type":"string",
+               "example":"2018-07-09T16:30:33.118638Z"
+            },
+            "member":{
+               "type":"integer",
+               "example":0
+            },
+            "type":{
+               "type":"string",
+               "example":"authorize"
+            },
+            "site":{
+               "type":"integer",
+               "example":3
+            },
+            "party":{
+               "$ref":"#/definitions/affiliate"
+            },
+         }
+      },
 
    },
    "externalDocs":{  
