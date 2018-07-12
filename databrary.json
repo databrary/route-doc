@@ -67,6 +67,53 @@
             }
          }
       },
+      "/api/token/{byteString0}":{
+         "post":{
+            "tags":[  
+               "login/register"
+            ],
+            "summary":"Post password token",
+            "description":"Post password token",
+            "operationId":"postPasswordToken",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"byteString0",
+                  "in":"path",
+                  "description":"token",
+                  "required":true,
+                  "type":"string",
+                  "example":"NuHqOHRqhp03dNscjpeGvWimWUu_P6PGN8h5Pgmllt4JwExtmL0yere1SqfDXomspQs2efz4xJyEMh"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post registrant",
+                  "required":true,
+                  "schema":{  
+                     "$ref":"#/definitions/password"
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{   
+                     "$ref":"#/definitions/registeruser"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
       "/api/user/login":{
          "post":{
             "tags":[  
@@ -1064,19 +1111,22 @@
                "description":"Old password"
             },
             "password":{
-               "type":"object",
-               "properties":{ 
-                  "once": {
-                     "type":"string",
-                     "example":"newstrongpassword",
-                     "description":"New password"
-                  },
-                  "again": {
-                     "type":"string",
-                     "example":"newstrongpassword",
-                     "description":"New password typed in again"
-                  }
-               }
+               "$ref":"#/definitions/password"
+            }
+         }
+      },
+      "password":{
+         "type":"object",
+         "properties":{ 
+            "once": {
+               "type":"string",
+               "example":"newstrongpassword",
+               "description":"New password"
+            },
+            "again": {
+               "type":"string",
+               "example":"newstrongpassword",
+               "description":"New password typed in again"
             }
          }
       },
@@ -1098,6 +1148,40 @@
             "affiliation": {
                "type":"string",
                "example":"New York University"
+            },
+            "csverf":{  
+               "type":"string",
+               "example":"QxNXAduisOc_czDG"
+            },
+            "email": {
+               "type":"string",
+               "example":"jsmith@university.edu"
+            },
+            "prename": {
+               "type":"string",
+               "example":"Jane"
+            },
+            "sortname":{  
+               "type":"string",
+               "example":"Smith",
+               "description":"Last name"
+            }
+         }
+      },
+      "registeruser":{
+         "type":"object",
+         "properties":{ 
+            "id":{  
+               "type":"integer",
+               "example":7
+            },
+            "authorization":{  
+               "type":"integer",
+               "example":5
+            },
+            "permission":{  
+               "type":"integer",
+               "example":5
             },
             "csverf":{  
                "type":"string",
