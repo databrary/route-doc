@@ -838,6 +838,59 @@
                }
             }
          }
+      },
+      "/api/volume/{volumeid}/access/{partyid}":{  
+         "post":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Post volume access by Id",
+            "description":"Post a volume access by ID",
+            "operationId":"postVolumeAccess",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string"
+               },
+               {  
+                  "name":"partyid",
+                  "in":"path",
+                  "description":"ID of the party",
+                  "required":true,
+                  "type":"string"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post volume info",
+                  "required":true,
+                  "schema":{  
+                     "$ref":"#/definitions/postvolumeaccess"
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/postvolumeaccessresult"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
       }
    },
    "securityDefinitions":{  
@@ -943,6 +996,39 @@
             "published":{  
                "type":"boolean",
                "example":true
+            }
+         }
+      },
+      "postvolumeaccess":{
+         "type":"object",
+         "properties":{  
+            "children":{  
+               "type":"integer",
+               "example":0
+            },
+            "extend":{  
+               "type":"boolean",
+               "example":false
+            },
+            "individual":{
+               "type":"integer",
+               "example":3
+            }
+         }
+      },
+      "postvolumeaccessresult":{
+         "type":"object",
+         "properties":{  
+            "children":{  
+               "type":"integer",
+               "example":0
+            },
+            "individual":{
+               "type":"integer",
+               "example":3
+            },
+            "party":{
+               "$ref":"#/definitions/getparty"
             }
          }
       },
