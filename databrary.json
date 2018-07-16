@@ -988,6 +988,54 @@
             }
          }
       },
+      "/api/funder":{  
+         "get":{  
+            "tags":[  
+               "search"
+            ],
+            "summary":"Search funders",
+            "description":"Search funders",
+            "operationId":"getFunders",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"query",
+                  "in":"query",
+                  "description":"funder query",
+                  "required":true,
+                  "type":"string",
+                  "example":"national+science+foundation"
+               },
+               {  
+                  "name":"all",
+                  "in":"query",
+                  "description":"query scope",
+                  "required":false,
+                  "type":"string"
+               },
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "$ref":"#/definitions/funder"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
       "/api/volume/{volumeid}/link":{  
          "post":{  
             "tags":[  
@@ -1112,6 +1160,62 @@
             }
          }
       },
+      "/api/cite":{  
+         "get":{  
+            "tags":[  
+               "search"
+            ],
+            "summary":"DOI lookup",
+            "description":"DOI lookup",
+            "operationId":"getCitation",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"url",
+                  "in":"query",
+                  "description":"query url",
+                  "required":true,
+                  "type":"string",
+                  "example":"10.17910%2FB77P4V"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"object",
+                     "properties":{
+                        "head": {
+                           "type":"string",
+                           "example":"Smith, J. (2016). Databrary."
+                        },
+                        "title": {
+                           "type":"string",
+                           "example":"Databrary"
+                        },
+                        "url": {
+                           "type":"string",
+                           "example":"hdl:10.17910/B77P4V"
+                        },
+                        "year": {
+                           "type":"integer",
+                           "example":2004
+                        },
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
    },
    "securityDefinitions":{  
    },
@@ -1201,7 +1305,7 @@
                "example":true
             },
             "links":{
-               "$ref":"#/definitions/linkresult"
+               "$ref":"#/definitions/link"
             }
          }
       },
@@ -1209,17 +1313,7 @@
          "type":"object",
          "properties":{  
             "funder":{
-               "type":"object",
-               "properties":{  
-                  "id":{  
-                     "type":"string",
-                     "example":"100000001"
-                  },
-                  "name":{  
-                     "type":"string",
-                     "example":"National Science Foundation (NSF)"
-                  }
-               }
+               "$ref":"#/definitions/funder"
             },
             "awards":{
                "type": "array",
@@ -1229,24 +1323,21 @@
                }
             }    
          }
-      },
-      "link":{
-         "type":"array",
-         "items": {
-            "type":"object",
-            "properties":{  
-               "head":{  
-                  "type":"string",
-                  "example":"Databrary Project"
-               },
-               "url":{  
-                  "type":"string",
-                  "example":"http://doi.org/10.17910/B77P4Z"
-               }
+      }, 
+      "funder":{
+         "type":"object",
+         "properties":{  
+            "id":{  
+               "type":"string",
+               "example":"100000001"
+            },
+            "name":{  
+               "type":"string",
+               "example":"National Science Foundation (NSF)"
             }
          }
       },
-      "linkresult":{
+      "link":{
          "type":"array",
          "items": {
             "type":"object",
@@ -1270,7 +1361,7 @@
                "properties":{
                   "head": {
                      "type":"string",
-                     "example":""
+                     "example":"Smith, J. (2016). Databrary."
                   }
                }
             },
@@ -1358,7 +1449,7 @@
                "properties":{
                   "head": {
                      "type":"string",
-                     "example":""
+                     "example":"Smith, J. (2016). Databrary."
                   }
                }
             },
@@ -1418,7 +1509,12 @@
             },
             "citation":{  
                "type":"object",
-               "example":null
+               "properties":{
+                  "head": {
+                     "type":"string",
+                     "example":"Smith, J. (2016). Databrary."
+                  }
+               }
             },
             "body":{  
                "type":"string",
