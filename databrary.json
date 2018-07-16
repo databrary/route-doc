@@ -19,6 +19,14 @@
          "description":"project"
       },
       {  
+         "name":"session/materials folder",
+         "description":"folders in a volume"
+      },
+      {  
+         "name":"file",
+         "description":"files in a volume"
+      },
+      {  
          "name":"search",
          "description":"search"
       }
@@ -171,14 +179,16 @@
                   "in":"path",
                   "description":"ID of the party",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"7"
                },
                {  
                   "name":"affiliateid",
                   "in":"path",
                   "description":"ID of the affiliate",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"3"
                },
                {  
                   "in":"body",
@@ -463,7 +473,8 @@
                   "in":"path",
                   "description":"ID of the party",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"7"
                }
             ],
             "responses":{  
@@ -498,7 +509,8 @@
                   "in":"path",
                   "description":"ID of the party",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"7"
                },
                {  
                   "in":"body",
@@ -559,7 +571,8 @@
                   "in":"path",
                   "description":"ID of the party",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"7"
                }
             ],
             "responses":{  
@@ -599,14 +612,16 @@
                   "in":"path",
                   "description":"ID of the party",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"7"
                },
                {  
                   "name":"affiliateid",
                   "in":"path",
                   "description":"ID of the affiliate",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"3"
                },
                {  
                   "in":"body",
@@ -664,14 +679,16 @@
                   "in":"path",
                   "description":"ID of the party",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"7"
                },
                {  
                   "name":"affiliateid",
                   "in":"path",
                   "description":"ID of the affiliate",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"3"
                }
             ],
             "responses":{  
@@ -779,7 +796,8 @@
                   "in":"path",
                   "description":"ID of the volume",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"1"
                }
             ],
             "responses":{  
@@ -814,7 +832,8 @@
                   "in":"path",
                   "description":"ID of the volume",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"1"
                },
                {  
                   "in":"body",
@@ -860,14 +879,16 @@
                   "in":"path",
                   "description":"ID of the volume",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"1"
                },
                {  
                   "name":"partyid",
                   "in":"path",
                   "description":"ID of the party",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"7"
                },
                {  
                   "in":"body",
@@ -1053,7 +1074,8 @@
                   "in":"path",
                   "description":"ID of the volume",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"1"
                },
                {  
                   "in":"body",
@@ -1099,7 +1121,8 @@
                   "in":"path",
                   "description":"ID of the volume",
                   "required":true,
-                  "type":"string"
+                  "type":"string",
+                  "example":"1"
                }
             ],
             "responses":{  
@@ -1109,6 +1132,171 @@
                      "type":"array",
                      "items":{
                         "$ref":"#/definitions/volumeactivity"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/volume/{volumeid}/slot":{  
+         "post":{  
+            "tags":[  
+               "session/materials folder"
+            ],
+            "summary":"Create a session or materials folder",
+            "description":"Create a session or materials folder",
+            "operationId":"createContainer",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/createslot"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/slot/{slotid}":{  
+         "post":{  
+            "tags":[  
+               "session/materials folder"
+            ],
+            "summary":"Post a session or materials folder info",
+            "description":"Post a session or materials folder info",
+            "operationId":"postContainer",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"slotid",
+                  "in":"path",
+                  "description":"ID of the session or materials folder",
+                  "required":true,
+                  "type":"string",
+                  "example":"5"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post slot info",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{  
+                        "top":{  
+                           "type":"boolean",
+                           "example":false
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/createslot"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
+         "delete":{  
+            "tags":[  
+               "session/materials folder"
+            ],
+            "summary":"Delete a session or materials folder info",
+            "description":"Delete a session or materials folder info",
+            "operationId":"deleteContainer",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"slotid",
+                  "in":"path",
+                  "description":"ID of the session or materials folder",
+                  "required":true,
+                  "type":"string",
+                  "example":"5"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation"
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/slot/{slotid}/activity":{  
+         "get":{  
+            "tags":[  
+               "session/materials folder"
+            ],
+            "summary":"Get a session or materials folder history",
+            "description":"Get a session or materials folder history",
+            "operationId":"getContainerActivity",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"slotid",
+                  "in":"path",
+                  "description":"ID of the session or materials folder",
+                  "required":true,
+                  "type":"string",
+                  "example":"5"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "$ref":"#/definitions/folderactivity"
                      }
                   }
                },
@@ -1437,6 +1625,39 @@
             },
          }
       },
+      "folderactivity":{  
+         "type":"object",
+         "properties":{  
+            "action":{  
+               "type":"string",
+               "example":"add"
+            },
+            "id":{  
+               "type":"integer",
+               "example":1
+            },
+            "segment":{  
+               "type":"integer",
+               "example":3314
+            },
+            "ip":{  
+               "type":"string",
+               "example":"67.245.114.163"
+            },
+            "type":{  
+               "type":"string",
+               "example":"excerpt"
+            },
+            "user":{  
+               "type":"integer",
+               "example":7
+            },
+            "when":{  
+               "type":"string",
+               "example":"2018-07-16T15:34:29.102903Z"
+            },
+         }
+      },
       "createvolume":{  
          "type":"object",
          "properties":{  
@@ -1558,6 +1779,15 @@
             "id":{  
                "type":"integer",
                "example":"7"
+            }
+         }
+      },
+      "createslot":{
+         "type":"object",
+         "properties":{  
+            "id":{  
+               "type":"integer",
+               "example":5
             }
          }
       },
