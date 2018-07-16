@@ -1183,6 +1183,111 @@
             }
          }
       },
+      "/api/volume/{volumeid}/upload":{  
+         "post":{  
+            "tags":[  
+               "file"
+            ],
+            "summary":"upload a file",
+            "description":"upload a file",
+            "operationId":"uploadStart",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post file info",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{  
+                        "filename":{
+                           "type":"string",
+                           "example":"File.mp4"
+                        },
+                        "size":{  
+                           "type":"integer",
+                           "example":394499
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"string",
+                     "example":"-AWEy4kBexpBb5nrQFodimuSlNWz3coU"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/volume/{volumeid}/asset":{  
+         "post":{  
+            "tags":[  
+               "file"
+            ],
+            "summary":"Create a file",
+            "description":"Create a file",
+            "operationId":"createAsset",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post file info",
+                  "required":true,
+                  "schema":{  
+                     "$ref":"#/definitions/createfile"
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/file"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
       "/api/slot/{slotid}":{  
          "post":{  
             "tags":[  
@@ -1789,6 +1894,52 @@
                "type":"integer",
                "example":5
             }
+         }
+      },
+      "createfile":{
+         "type":"object",
+         "properties":{  
+            "container":{  
+               "type":"integer",
+               "example":4
+            },
+            "name":{
+               "type":"string",
+               "example":"File.mp4"
+            },
+            "upload":{
+               "type":"string",
+               "example":"-AWEy4kBexpBb5nrQFodimuSlNWz3coU"
+            }
+         }
+      },
+      "file":{
+         "type":"object",
+         "properties":{  
+            "format":{  
+               "type":"integer",
+               "example":-800
+            },
+            "id":{  
+               "type":"integer",
+               "example":2
+            },
+            "name":{
+               "type":"string",
+               "example":"File"
+            },
+            "permission":{  
+               "type":"integer",
+               "example":5
+            },
+            "size":{  
+               "type":"integer",
+               "example":394499
+            },
+            "duration":{  
+               "type":"integer",
+               "example":40000
+            },
          }
       },
       "searchresult":{  
