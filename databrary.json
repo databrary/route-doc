@@ -891,7 +891,106 @@
                }
             }
          }
-      }
+      },
+      "/api/volume/{volumeid}/funder/{funderid}":{  
+         "post":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Post funding by Id",
+            "description":"Post a funding by ID",
+            "operationId":"postVolumeFunding",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"funderid",
+                  "in":"path",
+                  "description":"ID of the funder",
+                  "required":true,
+                  "type":"string",
+                  "example":"501100002607"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post funder info",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{  
+                        "awards":{  
+                           "type":"array",
+                           "items": {
+                              "type":"string",
+                              "example":"R37-HD33486"
+                           }
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/volume/{volumeid}/link":{  
+         "post":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Post doi link by Id",
+            "description":"Post a doi link by ID",
+            "operationId":"postVolumeLinks",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post volume info",
+                  "required":true,
+                  "schema":{  
+                     "$ref":"#/definitions/link"
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/volumewithlinks"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
    },
    "securityDefinitions":{  
    },
@@ -936,6 +1035,84 @@
             "publicsharefull":{  
                "type":"boolean",
                "example":true
+            }
+         }
+      },
+      "volumewithlinks":{  
+         "type":"object",
+         "properties":{  
+            "id":{  
+               "type":"integer",
+               "example":2
+            },
+            "alias":{  
+               "type":"string",
+               "example":"pilot"
+            },
+            "body":{  
+               "type":"string",
+               "example":"Databrary is an open data library for developmental science. Share video, audio, and related metadata."
+            },
+            "creation":{  
+               "type":"string",
+               "example":"2018-07-09T17:15:49.694977Z"
+            },
+            "doi":{  
+               "type":"string",
+               "example":"10.17910/B7159Z"
+            },
+            "name":{  
+               "type":"string",
+               "example":"Databrary"
+            },
+            "owners":{
+               "type": "array",
+               "items": {
+                  "$ref":"#/definitions/owner"
+               } 
+            },
+            "permission":{  
+               "type":"integer",
+               "example":5
+            },
+            "publicsharefull":{  
+               "type":"boolean",
+               "example":true
+            },
+            "links":{
+               "$ref":"#/definitions/linkresult"
+            }
+         }
+      },
+      "link":{
+         "type":"array",
+         "items": {
+            "type":"object",
+            "properties":{  
+               "head":{  
+                  "type":"string",
+                  "example":"Databrary Project"
+               },
+               "url":{  
+                  "type":"string",
+                  "example":"http://doi.org/10.17910/B77P4Z"
+               }
+            }
+         }
+      },
+      "linkresult":{
+         "type":"array",
+         "items": {
+            "type":"object",
+            "properties":{  
+               "head":{  
+                  "type":"string",
+                  "example":"Databrary Project"
+               },
+               "url":{  
+                  "type":"string",
+                  "example":"hdl:10.17910/B77P4V"
+               }
             }
          }
       },
