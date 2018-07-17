@@ -20,23 +20,27 @@
       },
       {  
          "name":"session/materials folder",
-         "description":"Folders in a volume"
+         "description":"These routes are used for creating, deleting, modifying folders in a volume."
       },
       {  
          "name":"file",
-         "description":"Files in a volume"
+         "description":"These routes are used for uploading and deleting files in a volume."
       },
       {  
          "name":"participant record",
-         "description":"Records of participants in a study"
+         "description":"These routes are used for creating, deleting, modifying records of participants in a study."
       },
       {  
          "name":"spreadsheet",
-         "description":"Spreadsheet of data"
+         "description":"These routes are used for designing the spreadsheet of volume data."
       },
       {  
          "name":"search",
          "description":"These routes are used for searching parties, volumes, or DOI links."
+      },
+      {  
+         "name":"site stats",
+         "description":"These routes are used to show website statistics on the home page."
       }
    ],
    "schemes":[  
@@ -704,6 +708,37 @@
                   "description":"successful operation",
                   "schema":{  
                      "$ref":"#/definitions/affiliate"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/notification":{  
+         "get":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Get notifications",
+            "description":"Get notifications for the current user",
+            "operationId":"getNotifications",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "$ref":"#/definitions/notification"
+                     }
                   }
                },
                "400":{  
@@ -2085,6 +2120,66 @@
             }
          }
       },
+      "/api/tags":{  
+         "get":{  
+            "tags":[  
+               "site stats"
+            ],
+            "summary":"Get the most popular tags",
+            "description":"Get the most popular tags",
+            "operationId":"getTopTags",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "type":"string",
+                        "example":"children"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/activity":{  
+         "get":{  
+            "tags":[  
+               "site stats"
+            ],
+            "summary":"Get the site activity",
+            "description":"Get the site activity",
+            "operationId":"getSiteActivity",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/siteactivity"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
    },
    "securityDefinitions":{  
    },
@@ -2447,6 +2542,38 @@
             "publicsharefull":{  
                "type":"boolean",
                "example":true
+            }
+         }
+      },
+      "siteactivity":{  
+         "type":"object",
+         "properties":{  
+            "activity":{  
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "properties":{  
+                     "time":{  
+                        "type":"string",
+                        "example":"2018-07-16T15:34:29.109273Z"
+                     },
+                     "volume":{
+                        "$ref":"#/definitions/volume"
+                     }
+                  }
+               }
+            },
+            "stats":{  
+               "type":"object",
+               "properties":{  
+                  "time":{  
+                     "type":"string",
+                     "example":"2018-07-16T15:34:29.109273Z"
+                  },
+                  "volume":{
+                     "$ref":"#/definitions/volume"
+                  }
+               }
             }
          }
       },
@@ -2860,6 +2987,53 @@
                "example":"Lee",
                "description":"Last name"
             }
+         }
+      },
+      "notification":{
+         "type":"object",
+         "properties":{ 
+            "agent":{
+               "type":"object",
+               "properties":{ 
+                  "id":{  
+                     "type":"integer",
+                     "example":8
+                  },
+                  "prename": {
+                     "type":"string",
+                     "example":"Lisa"
+                  },
+                  "sortname":{  
+                     "type":"string",
+                     "example":"Lee",
+                     "description":"Last name"
+                  }
+               }
+            },
+            "id":{  
+               "type":"integer",
+               "example":3
+            },
+            "delivered":{  
+               "type":"integer",
+               "example":1
+            },
+            "html": {
+               "type":"string",
+               "example":"<a href=\"/party/8\">Lisa Lee</a> requested <a href=\"/profile/edit?page=grant&amp;party=8\">authorization</a> from you."
+            },
+            "notice":{  
+               "type":"integer",
+               "example":6
+            },
+            "party":{  
+               "type":"integer",
+               "example":7
+            },
+            "time":{  
+               "type":"string",
+               "example":"2018-07-17T18:37:37.650356Z"
+            },
          }
       },
       "profile":{
