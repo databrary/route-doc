@@ -19,6 +19,10 @@
          "description":"A volume is a study or a project."
       },
       {  
+         "name":"spreadsheet",
+         "description":"These routes are used for designing the spreadsheet of volume data."
+      },
+      {  
          "name":"session/materials folder",
          "description":"These routes are used for creating, deleting, modifying folders in a volume."
       },
@@ -29,10 +33,6 @@
       {  
          "name":"participant record",
          "description":"These routes are used for creating, deleting, modifying records of participants in a study."
-      },
-      {  
-         "name":"spreadsheet",
-         "description":"These routes are used for designing the spreadsheet of volume data."
       },
       {  
          "name":"search",
@@ -607,6 +607,95 @@
             }
          },
       },
+      "/api/notification":{  
+         "get":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Get all notifications",
+            "description":"Get all notifications for the current user",
+            "operationId":"getNotifications",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "$ref":"#/definitions/notification"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
+         "delete":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Delete all notifications",
+            "description":"Delete all notifications for the current user",
+            "operationId":"deleteNotifications",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation"
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/notification/{notificationid}":{  
+         "delete":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Delete a notification by ID",
+            "description":"Delete a notification by ID",
+            "operationId":"deleteNotification",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"notificationid",
+                  "in":"path",
+                  "description":"ID of the notification",
+                  "required":true,
+                  "type":"string",
+                  "example":"5"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation"
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
       "/api/party/{partyid}/authorize/{affiliateid}":{  
          "post":{  
             "tags":[  
@@ -708,37 +797,6 @@
                   "description":"successful operation",
                   "schema":{  
                      "$ref":"#/definitions/affiliate"
-                  }
-               },
-               "400":{  
-                  "description":"Error",
-                  "schema":{  
-                     "type":"string",
-                     "example":"Something went wrong"
-                  }
-               }
-            }
-         }
-      },
-      "/api/notification":{  
-         "get":{  
-            "tags":[  
-               "party"
-            ],
-            "summary":"Get notifications",
-            "description":"Get notifications for the current user",
-            "operationId":"getNotifications",
-            "produces":[  
-               "application/json"
-            ],
-            "responses":{  
-               "200":{  
-                  "description":"successful operation",
-                  "schema":{  
-                     "type":"array",
-                     "items":{
-                        "$ref":"#/definitions/notification"
-                     }
                   }
                },
                "400":{  
@@ -2026,6 +2084,230 @@
             }
          }
       },
+      "/api/slot/{slotid}/{segment}/keyword/{tagname}":{  
+         "post":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Post a keyword for the volume",
+            "description":"Post a keyword for the volume on the volume edit page",
+            "operationId":"postKeyword",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"slotid",
+                  "in":"path",
+                  "description":"ID of the session or materials folder",
+                  "required":true,
+                  "type":"string",
+                  "example":"5"
+               },
+               {  
+                  "name":"segment",
+                  "in":"path",
+                  "description":"segment of the file",
+                  "required":true,
+                  "type":"string",
+                  "example":"-"
+               },
+               {  
+                  "name":"tagname",
+                  "in":"path",
+                  "description":"name of the tag",
+                  "required":true,
+                  "type":"string",
+                  "example":"children"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "$ref":"#/definitions/keywordresult"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
+         "delete":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Delete a keyword for the volume",
+            "description":"Delete a keyword for the volume on the volume edit page",
+            "operationId":"deleteKeyword",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"slotid",
+                  "in":"path",
+                  "description":"ID of the session or materials folder",
+                  "required":true,
+                  "type":"string",
+                  "example":"5"
+               },
+               {  
+                  "name":"segment",
+                  "in":"path",
+                  "description":"segment of the file",
+                  "required":true,
+                  "type":"string",
+                  "example":"-"
+               },
+               {  
+                  "name":"tagname",
+                  "in":"path",
+                  "description":"name of the tag",
+                  "required":true,
+                  "type":"string",
+                  "example":"children"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "$ref":"#/definitions/deletekeyword"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/slot/{slotid}/{segment}/tag/{tagname}":{  
+         "post":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Post a tag for the volume",
+            "description":"Post a tag for the volume on the volume view page",
+            "operationId":"postTag",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"slotid",
+                  "in":"path",
+                  "description":"ID of the session or materials folder",
+                  "required":true,
+                  "type":"string",
+                  "example":"5"
+               },
+               {  
+                  "name":"segment",
+                  "in":"path",
+                  "description":"segment of the file",
+                  "required":true,
+                  "type":"string",
+                  "example":"-"
+               },
+               {  
+                  "name":"tagname",
+                  "in":"path",
+                  "description":"name of the tag",
+                  "required":true,
+                  "type":"string",
+                  "example":"children"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "$ref":"#/definitions/keywordresult"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
+         "delete":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Delete a tag for the volume",
+            "description":"Delete a tag for the volume on the volume view page",
+            "operationId":"deleteTag",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"slotid",
+                  "in":"path",
+                  "description":"ID of the session or materials folder",
+                  "required":true,
+                  "type":"string",
+                  "example":"5"
+               },
+               {  
+                  "name":"segment",
+                  "in":"path",
+                  "description":"segment of the file",
+                  "required":true,
+                  "type":"string",
+                  "example":"-"
+               },
+               {  
+                  "name":"tagname",
+                  "in":"path",
+                  "description":"name of the tag",
+                  "required":true,
+                  "type":"string",
+                  "example":"children"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "$ref":"#/definitions/deletekeyword"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
       "/api/search":{  
          "get":{  
             "tags":[  
@@ -2120,6 +2402,44 @@
             }
          }
       },
+      "/api/tags/{tagname}":{  
+         "get":{  
+            "tags":[  
+               "search"
+            ],
+            "summary":"See if a tag exists",
+            "description":"See if a tag exists",
+            "operationId":"getTags",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"tagname",
+                  "in":"path",
+                  "description":"name of the tag",
+                  "required":true,
+                  "type":"string",
+                  "example":"children"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/tags"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
       "/api/tags":{  
          "get":{  
             "tags":[  
@@ -2135,11 +2455,7 @@
                "200":{  
                   "description":"successful operation",
                   "schema":{  
-                     "type":"array",
-                     "items":{
-                        "type":"string",
-                        "example":"children"
-                     }
+                     "$ref":"#/definitions/tags"
                   }
                },
                "400":{  
@@ -2401,6 +2717,13 @@
             },
          }
       },
+      "tags":{
+         "type":"array",
+         "items":{
+            "type":"string",
+            "example":"children"
+         }
+      },
       "folderactivity":{  
          "type":"object",
          "properties":{  
@@ -2566,12 +2889,65 @@
             "stats":{  
                "type":"object",
                "properties":{  
-                  "time":{  
-                     "type":"string",
-                     "example":"2018-07-16T15:34:29.109273Z"
+                  "assets":{  
+                     "type":"integer",
+                     "example":71390
                   },
-                  "volume":{
-                     "$ref":"#/definitions/volume"
+                  "bytes":{  
+                     "type":"integer",
+                     "example":15008953257878
+                  },
+                  "duration":{  
+                     "type":"integer",
+                     "example":119567421146
+                  },
+                  "shared":{  
+                     "type":"integer",
+                     "example":232
+                  },
+                  "volumes":{  
+                     "type":"integer",
+                     "example":691
+                  },
+                  "authorized":{
+                     "type":"array",
+                     "items":{
+                        "type":"integer",
+                        "example":431
+                     }
+                  },
+                  "records":{  
+                     "type":"object",
+                     "properties":{  
+                        "1":{  
+                           "type":"integer",
+                           "example":15780
+                        },
+                        "2":{  
+                           "type":"integer",
+                           "example":223
+                        },
+                        "3":{  
+                           "type":"integer",
+                           "example":401
+                        },
+                        "4":{  
+                           "type":"integer",
+                           "example":559
+                        },
+                        "5":{  
+                           "type":"integer",
+                           "example":410
+                        },
+                        "6":{  
+                           "type":"integer",
+                           "example":709
+                        },
+                        "7":{  
+                           "type":"integer",
+                           "example":245
+                        }
+                     }
                   }
                }
             }
@@ -2588,6 +2964,55 @@
                "type":"integer",
                "example":"7"
             }
+         }
+      },
+      "keywordresult":{
+         "type":"object",
+         "properties":{ 
+            "id":{  
+               "type":"string",
+               "example":"children"
+            },
+            "weight": {
+               "type":"integer",
+               "example":1
+            },
+            "coverage": {
+               "type":"array",
+               "items":{
+                  "type":"array",
+                  "items":{
+                     "type":"string",
+                     "example":null
+                  }
+               }
+            },
+            "keyword": {
+               "type":"array",
+               "items":{
+                  "type":"array",
+                  "items":{
+                     "type":"string",
+                     "example":null
+                  }
+               }
+            }
+         }
+      },
+      "deletekeyword":{
+         "type":"object",
+         "properties":{ 
+            "id":{  
+               "type":"string",
+               "example":"children"
+            },
+            "weight": {
+               "type":"integer",
+               "example":0
+            },
+            "coverage": {
+               "type":"array"
+            },
          }
       },
       "createslot":{
