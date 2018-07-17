@@ -2608,16 +2608,7 @@
                "200":{  
                   "description":"successful operation",
                   "schema":{  
-                     "type":"object",
-                     "properties":{  
-                        "permission":{  
-                           "type":"integer",
-                           "example":5
-                        },
-                        "segment":{  
-                           "$ref":"#/definitions/segment"
-                        }
-                     }
+                     "$ref":"#/definitions/slimsegment"
                   }
                },
                "400":{  
@@ -2635,8 +2626,8 @@
             "tags":[  
                "file"
             ],
-            "summary":"Get a certain file segment info",
-            "description":"Get a certain file segment info",
+            "summary":"Get a file segment info",
+            "description":"Get a file segment info",
             "operationId":"getSlot",
             "produces":[  
                "application/json"
@@ -2681,6 +2672,68 @@
                            "$ref":"#/definitions/segment"
                         }
                      }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/volume/{volumeid}/slot/{slotid}/{segment}/asset/{assetid}":{  
+         "get":{  
+            "tags":[  
+               "file"
+            ],
+            "summary":"Get a file segment info specific to a volume",
+            "description":"Get a file segment info specific to a volume",
+            "operationId":"getAssetSegment",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "name":"slotid",
+                  "in":"path",
+                  "description":"ID of the session or materials folder",
+                  "required":true,
+                  "type":"string",
+                  "example":"5"
+               },
+               {  
+                  "name":"segment",
+                  "in":"path",
+                  "description":"segment of the file",
+                  "required":true,
+                  "type":"string",
+                  "example":"-"
+               },
+               {  
+                  "name":"assetid",
+                  "in":"path",
+                  "description":"ID of the file",
+                  "required":true,
+                  "type":"string",
+                  "example":"2"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/slimsegment"
                   }
                },
                "400":{  
@@ -2934,6 +2987,87 @@
                   "schema":{  
                      "$ref":"#/definitions/siteactivity"
                   }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/notify":{  
+         "get":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Get the user's notification settings",
+            "description":"Get the user's notification settings",
+            "operationId":"getNotify",
+            "produces":[  
+               "application/json"
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "minItems": 24,
+                     "uniqueItems": true,
+                     "items":{
+                        "type":"integer",
+                        "example":4
+                     },
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
+         "post":{  
+            "tags":[  
+               "party"
+            ],
+            "summary":"Post the user's notification settings",
+            "description":"Post the user's notification settings",
+            "operationId":"postNotify",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post notification settings",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{  
+                        "delivery":{
+                           "type":"integer",
+                           "example":4
+                        },
+                        "notice":{  
+                           "type":"array",
+                           "items":{
+                              "type":"integer",
+                              "example":2
+                           },
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation"
                },
                "400":{  
                   "description":"Error",
@@ -3754,6 +3888,18 @@
                      }
                   }
                }
+            }
+         }
+      },
+      "slimsegment":{
+         "type":"object",
+         "properties":{  
+            "permission":{  
+               "type":"integer",
+               "example":5
+            },
+            "segment":{  
+               "$ref":"#/definitions/segment"
             }
          }
       },
