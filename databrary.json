@@ -2308,6 +2308,70 @@
             }
          }
       },
+      "/api/slot/{slotid}/{segment}/comment":{  
+         "post":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Post a comment for the volume",
+            "description":"Post a comment for the volume",
+            "operationId":"postComment",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"slotid",
+                  "in":"path",
+                  "description":"ID of the session or materials folder",
+                  "required":true,
+                  "type":"string",
+                  "example":"5"
+               },
+               {  
+                  "name":"segment",
+                  "in":"path",
+                  "description":"segment of the file",
+                  "required":true,
+                  "type":"string",
+                  "example":"-"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post comment",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{  
+                        "text":{
+                           "type":"string",
+                           "example":"This is a comment for the volume."
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "$ref":"#/definitions/comment"
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
       "/api/search":{  
          "get":{  
             "tags":[  
@@ -2724,6 +2788,39 @@
             "example":"children"
          }
       },
+      "comment":{  
+         "type":"object",
+         "properties":{  
+            "container":{
+               "type":"object",
+               "properties":{
+                  "id":{
+                     "type":"integer",
+                     "example":1
+                  },
+                  "top":{
+                     "type":"boolean",
+                     "example":true
+                  }   
+               }
+            },    
+            "id":{
+               "type":"integer",
+               "example":1
+            },
+            "text":{
+               "type":"string",
+               "example":"This is a comment for the volume."
+            },
+            "time":{  
+               "type":"string",
+               "example":"2018-07-16T15:34:29.109273Z"
+            },
+            "who":{
+               "$ref":"#/definitions/getparty"
+            }
+         }
+      }, 
       "folderactivity":{  
          "type":"object",
          "properties":{  
