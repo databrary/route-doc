@@ -8,27 +8,35 @@
    "tags":[  
       {  
          "name":"login/register",
-         "description":"user"
+         "description":"These routes are used to create a user account and to log in and out an existing user"
       },
       {  
          "name":"party",
-         "description":"user"
+         "description":"A party is any user of Databrary, be it an individual or an institution."
       },
       {  
          "name":"volume",
-         "description":"project"
+         "description":"A volume is a study or a project."
       },
       {  
          "name":"session/materials folder",
-         "description":"folders in a volume"
+         "description":"Folders in a volume"
       },
       {  
          "name":"file",
-         "description":"files in a volume"
+         "description":"Files in a volume"
+      },
+      {  
+         "name":"participant record",
+         "description":"Records of participants in a study"
+      },
+      {  
+         "name":"spreadsheet",
+         "description":"Spreadsheet of data"
       },
       {  
          "name":"search",
-         "description":"search"
+         "description":"These routes are used for searching parties, volumes, or DOI links."
       }
    ],
    "schemes":[  
@@ -1145,13 +1153,162 @@
             }
          }
       },
+      "/api/volume/{volumeid}/record":{  
+         "post":{  
+            "tags":[  
+               "participant record"
+            ],
+            "summary":"Create participant record",
+            "description":"Create a record for the participant of the study",
+            "operationId":"createRecord",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Create record",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{
+                        "category":{
+                           "type":"integer",
+                           "example":1
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/createrecord"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/record/{recordid}":{  
+         "delete":{  
+            "tags":[  
+               "participant record"
+            ],
+            "summary":"Delete participant record",
+            "description":"Delete participant record",
+            "operationId":"deleteRecord",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"recordid",
+                  "in":"path",
+                  "description":"ID of the record",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation"
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/record/{recordid}/metric/{metricid}":{  
+         "post":{  
+            "tags":[  
+               "participant record"
+            ],
+            "summary":"Post participant record metric",
+            "description":"Post participant record metric like birthdate, gender, race, etc.",
+            "operationId":"postRecordMeasure",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"recordid",
+                  "in":"path",
+                  "description":"ID of the record",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "name":"metricid",
+                  "in":"path",
+                  "description":"ID of the metric",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post record",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{
+                        "datum":{
+                           "type":"string",
+                           "example":"1"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/postrecord"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
       "/api/volume/{volumeid}/category/{categoryid}":{  
          "put":{  
             "tags":[  
-               "volume"
+               "spreadsheet"
             ],
             "summary":"Add a category for the spreadsheet",
-            "description":"Add a category for the spreadsheet",
+            "description":"Add a category for the spreadsheet like participant, pilot, exclusion, etc.",
             "operationId":"addVolumeCategory",
             "produces":[  
                "application/json"
@@ -1196,7 +1353,7 @@
          },
          "delete":{  
             "tags":[  
-               "volume"
+               "spreadsheet"
             ],
             "summary":"Delete a category from the spreadsheet",
             "description":"Delete a category from the spreadsheet",
@@ -1243,7 +1400,7 @@
       "/api/volume/{volumeid}/metric/{metricid}":{  
          "put":{  
             "tags":[  
-               "volume"
+               "spreadsheet"
             ],
             "summary":"Add a metric under a category",
             "description":"Add a metric under a category",
@@ -1291,7 +1448,7 @@
          },
          "delete":{  
             "tags":[  
-               "volume"
+               "spreadsheet"
             ],
             "summary":"Delete a metric under a category",
             "description":"Delete a metric under a category",
@@ -2312,6 +2469,44 @@
             "id":{  
                "type":"integer",
                "example":5
+            }
+         }
+      },
+      "createrecord":{
+         "type":"object",
+         "properties":{
+            "category":{
+               "type":"integer",
+               "example":1
+            },
+            "id":{
+               "type":"integer",
+               "example":1
+            },
+            "measures":{
+               "type":"object"
+            }
+         }
+      },
+      "postrecord":{
+         "type":"object",
+         "properties":{
+            "category":{
+               "type":"integer",
+               "example":1
+            },
+            "id":{
+               "type":"integer",
+               "example":1
+            },
+            "measures":{
+               "type":"object",
+               "properties":{
+                  "1":{
+                     "type":"string",
+                     "example":"1"
+                  }
+               }
             }
          }
       },
