@@ -229,6 +229,47 @@
                   }
                }
             }
+         },
+         "delete":{  
+            "tags":[  
+               "login/register"
+            ],
+            "summary":"Delete affiliate application by Id",
+            "description":"Delete affiliate application by ID",
+            "operationId":"deleteAuthorizeParent",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"partyid",
+                  "in":"path",
+                  "description":"ID of the party",
+                  "required":true,
+                  "type":"string",
+                  "example":"7"
+               },
+               {  
+                  "name":"affiliateid",
+                  "in":"path",
+                  "description":"ID of the affiliate",
+                  "required":true,
+                  "type":"string",
+                  "example":"3"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation"
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
          }
       },
       "/api/user/login":{
@@ -1300,6 +1341,42 @@
          }
       },
       "/api/record/{recordid}":{  
+         "get":{  
+            "tags":[  
+               "participant record"
+            ],
+            "summary":"Get participant record",
+            "description":"Get participant record",
+            "operationId":"getRecord",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"recordid",
+                  "in":"path",
+                  "description":"ID of the record",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/postrecord"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
          "delete":{  
             "tags":[  
                "participant record"
@@ -2536,6 +2613,69 @@
                         "permission":{  
                            "type":"integer",
                            "example":5
+                        },
+                        "segment":{  
+                           "$ref":"#/definitions/segment"
+                        }
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/slot/{slotid}/{segment}":{  
+         "get":{  
+            "tags":[  
+               "file"
+            ],
+            "summary":"Get a certain file segment info",
+            "description":"Get a certain file segment info",
+            "operationId":"getSlot",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"slotid",
+                  "in":"path",
+                  "description":"ID of the session or materials folder",
+                  "required":true,
+                  "type":"string",
+                  "example":"5"
+               },
+               {  
+                  "name":"segment",
+                  "in":"path",
+                  "description":"segment of the file",
+                  "required":true,
+                  "type":"string",
+                  "example":"11813,13282"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"object",
+                     "properties":{
+                        "id":{  
+                           "type":"integer",
+                           "example":4
+                        },
+                        "top":{  
+                           "type":"boolean",
+                           "example":true
+                        },
+                        "name":{  
+                           "type":"string",
+                           "example":"Top-level materials"
                         },
                         "segment":{  
                            "$ref":"#/definitions/segment"
