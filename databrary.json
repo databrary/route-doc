@@ -1395,6 +1395,123 @@
             }
          }
       },
+      "/api/volume/{volumeid}/detectParticipantCSV":{  
+         "post":{  
+            "tags":[  
+               "participant record"
+            ],
+            "summary":"Parse participant metadata CSV file to be uplaoded",
+            "description":"Parse participant metadata CSV file to be uplaoded",
+            "operationId":"detectParticipantCSV",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/detectCSV"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/volume/{volumeid}/runParticipantUpload":{  
+         "post":{  
+            "tags":[  
+               "participant record"
+            ],
+            "summary":"Upload participant metadata CSV file",
+            "description":"Upload participant metadata CSV file",
+            "operationId":"runParticipantUpload",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Upload participant metadata csv",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{
+                        "csv_upload_id": {
+                           "type":"string",
+                           "example":"7-1-metadata.csv"
+                        },
+                        "selected_mapping":{
+                           "type":"array",
+                           "items": {
+                              "type":"object",
+                              "properties":{  
+                                 "metric":{  
+                                    "type":"string",
+                                    "example":"id"
+                                 },
+                                 "csv_field":{  
+                                    "type":"string",
+                                    "example":"id"
+                                 }
+                              }
+                           }
+                        },
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"object",
+                     "properties":{  
+                        "id":{  
+                           "type":"integer",
+                           "example":1
+                        },
+                        "succeeded":{  
+                           "type":"boolean",
+                           "example":true
+                        }
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
       "/api/volume/{volumeid}/category/{categoryid}":{  
          "put":{  
             "tags":[  
@@ -2821,6 +2938,76 @@
             }
          }
       }, 
+      "detectCSV":{
+         "type":"object",
+         "properties":{  
+            "column_samples":{
+               "type":"array",
+               "items": {
+                  "type":"object",
+                  "properties":{  
+                     "column_name":{  
+                        "type":"string",
+                        "example":"id"
+                     },
+                     "samples":{  
+                        "type":"array",
+                        "items": {
+                           "type":"string",
+                           "example":"1"
+                        }
+                     }
+                  }
+               }
+            },
+            "columns_firstvals":{
+               "type":"array",
+               "items": {
+                  "type":"object",
+                  "properties":{  
+                     "column_name":{  
+                        "type":"string",
+                        "example":"id"
+                     },
+                     "samples":{  
+                        "type":"array",
+                        "items": {
+                           "type":"string",
+                           "example":"1"
+                        }
+                     }
+                  }
+               }
+            },
+            "csv_upload_id": {
+               "type":"string",
+               "example":"7-1-metadata.csv"
+            },
+            "id":{  
+               "type":"integer",
+               "example":1
+            },
+            "suggested_mapping":{
+               "type":"array",
+               "items": {
+                  "type":"object",
+                  "properties":{  
+                     "metric":{  
+                        "type":"string",
+                        "example":"id"
+                     },
+                     "compatible_csv_fields":{  
+                        "type":"array",
+                        "items": {
+                           "type":"string",
+                           "example":"id"
+                        }
+                     }
+                  }
+               }
+            },
+         }
+      },
       "folderactivity":{  
          "type":"object",
          "properties":{  
