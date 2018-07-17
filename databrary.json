@@ -2022,6 +2022,103 @@
             }
          }
       },
+      "/api/volume/{volumeid}/state/{statename}":{  
+         "put":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Save a volume report",
+            "description":"Save a volume report",
+            "operationId":"postVolumeState",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "name":"statename",
+                  "in":"path",
+                  "description":"name of the report",
+                  "required":true,
+                  "type":"string",
+                  "example":"Session%20release%20level%20summary"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post file info",
+                  "required":true,
+                  "schema":{  
+                     "$ref":"#/definitions/savereport"
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation"
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
+         "delete":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Delete a volume report",
+            "description":"Delete a volume report",
+            "operationId":"deleteVolumeState",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "name":"statename",
+                  "in":"path",
+                  "description":"name of the report",
+                  "required":true,
+                  "type":"string",
+                  "example":"Session%20release%20level%20summary"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"boolean",
+                     "example":true
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
       "/api/asset/{assetid}":{  
          "get":{  
             "tags":[  
@@ -3243,6 +3340,86 @@
             "published":{  
                "type":"boolean",
                "example":true
+            }
+         }
+      },
+      "savereport":{  
+         "type":"object",
+         "properties":{  
+            "pivot":{  
+               "type":"object",
+               "properties":{
+                  "aggregatorName": {
+                     "type":"string",
+                     "example":"Count"
+                  },
+                  "rendererName": {
+                     "type":"string",
+                     "example":"Table"
+                  },
+                  "cols":{
+                     "type":"array",
+                     "items":{
+                        "type":"string",
+                        "example": null
+                     }
+                  },
+                  "rows":{
+                     "type":"array",
+                     "items":{
+                        "type":"string",
+                        "example": null
+                     }
+                  },
+                  "vals":{
+                     "type":"array",
+                     "items":{
+                        "type":"string",
+                        "example": null
+                     }
+                  },
+               }
+            },
+            "sort":{  
+               "type":"object",
+               "properties":{
+                  "c": {
+                     "type":"string",
+                     "example":"slot"
+                  },
+                  "m": {
+                     "type":"string",
+                     "example":"date"
+                  },
+                  "dir":{
+                     "type":"boolean",
+                     "example":false
+                  },
+               }
+            },
+            "filter":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "properties":{
+                     "c": {
+                        "type":"string",
+                        "example":"slot"
+                     },
+                     "m": {
+                        "type":"string",
+                        "example":"top"
+                     },
+                     "op":{
+                        "type":"boolean",
+                        "example":false
+                     },
+                  }
+               }
+            },
+            "key":{  
+               "type":"string",
+               "example":"slot"
             }
          }
       },
