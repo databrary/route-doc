@@ -922,8 +922,8 @@
             "tags":[  
                "volume"
             ],
-            "summary":"Post funding by Id",
-            "description":"Post a funding by ID",
+            "summary":"Post volume funding by Id",
+            "description":"Post volume funding by ID",
             "operationId":"postVolumeFunding",
             "produces":[  
                "application/json"
@@ -976,8 +976,8 @@
             "tags":[  
                "volume"
             ],
-            "summary":"Delete funding by Id",
-            "description":"Delete a funding by ID",
+            "summary":"Delete volume funding by Id",
+            "description":"Delete volume funding by ID",
             "operationId":"deleteVolumeFunder",
             "produces":[  
                "application/json"
@@ -1062,8 +1062,8 @@
             "tags":[  
                "volume"
             ],
-            "summary":"Post doi link by Id",
-            "description":"Post a doi link by ID",
+            "summary":"Post volume doi link by Id",
+            "description":"Post volume doi link by ID",
             "operationId":"postVolumeLinks",
             "produces":[  
                "application/json"
@@ -1150,8 +1150,8 @@
             "tags":[  
                "volume"
             ],
-            "summary":"Add a category",
-            "description":"Add a category",
+            "summary":"Add a category for the spreadsheet",
+            "description":"Add a category for the spreadsheet",
             "operationId":"addVolumeCategory",
             "produces":[  
                "application/json"
@@ -1198,8 +1198,8 @@
             "tags":[  
                "volume"
             ],
-            "summary":"Delete a category",
-            "description":"Delete a category",
+            "summary":"Delete a category from the spreadsheet",
+            "description":"Delete a category from the spreadsheet",
             "operationId":"deleteVolumeCategory",
             "produces":[  
                "application/json"
@@ -1228,6 +1228,101 @@
                   "schema":{  
                      "type":"string",
                      "example":"7"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/volume/{volumeid}/metric/{metricid}":{  
+         "put":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Add a metric under a category",
+            "description":"Add a metric under a category",
+            "operationId":"addVolumeMetric",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "name":"metricid",
+                  "in":"path",
+                  "description":"ID of the metric",
+                  "required":true,
+                  "type":"string",
+                  "example":"2"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "type":"integer",
+                        "example":2
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
+         "delete":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Delete a metric under a category",
+            "description":"Delete a metric under a category",
+            "operationId":"deleteVolumeMetric",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "name":"metricid",
+                  "in":"path",
+                  "description":"ID of the metric",
+                  "required":true,
+                  "type":"string",
+                  "example":"2"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"string",
+                     "example":"1"
                   }
                },
                "400":{  
