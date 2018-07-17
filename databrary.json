@@ -1145,6 +1145,101 @@
             }
          }
       },
+      "/api/volume/{volumeid}/category/{categoryid}":{  
+         "put":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Add a category",
+            "description":"Add a category",
+            "operationId":"addVolumeCategory",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "name":"categoryid",
+                  "in":"path",
+                  "description":"ID of the category",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"array",
+                     "items":{
+                        "type":"integer",
+                        "example":1
+                     }
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
+         "delete":{  
+            "tags":[  
+               "volume"
+            ],
+            "summary":"Delete a category",
+            "description":"Delete a category",
+            "operationId":"deleteVolumeCategory",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "name":"categoryid",
+                  "in":"path",
+                  "description":"ID of the category",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "type":"string",
+                     "example":"7"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
       "/api/volume/{volumeid}/slot":{  
          "post":{  
             "tags":[  
@@ -1188,8 +1283,8 @@
             "tags":[  
                "file"
             ],
-            "summary":"upload a file",
-            "description":"upload a file",
+            "summary":"Start uploading a file",
+            "description":"Start uploading a file",
             "operationId":"uploadStart",
             "produces":[  
                "application/json"
@@ -1228,8 +1323,108 @@
                   "description":"successful operation",
                   "schema":{  
                      "type":"string",
-                     "example":"-AWEy4kBexpBb5nrQFodimuSlNWz3coU"
+                     "example":"fH_AYX37Oy_wajSmY_QrtdRDnMyOnBN7"
                   }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/upload":{  
+         "post":{  
+            "tags":[  
+               "file"
+            ],
+            "summary":"Upload a file in chunks",
+            "description":"Upload a file in chunks",
+            "operationId":"uploadChunk",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"volumeid",
+                  "in":"path",
+                  "description":"ID of the volume",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "name":"flowChunkNumber",
+                  "in":"query",
+                  "description":"query keyword",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               },
+               {  
+                  "name":"flowChunkSize",
+                  "in":"query",
+                  "description":"query keyword",
+                  "required":true,
+                  "type":"string",
+                  "example":"1048576"
+               },
+               {  
+                  "name":"flowCurrentChunkSize",
+                  "in":"query",
+                  "description":"query keyword",
+                  "required":true,
+                  "type":"string",
+                  "example":"394499"
+               },
+               {  
+                  "name":"flowTotalSize",
+                  "in":"query",
+                  "description":"query keyword",
+                  "required":true,
+                  "type":"string",
+                  "example":"394499"
+               },
+               {  
+                  "name":"flowIdentifier",
+                  "in":"query",
+                  "description":"query keyword",
+                  "required":true,
+                  "type":"string",
+                  "example":"fH_AYX37Oy_wajSmY_QrtdRDnMyOnBN7"
+               },
+               {  
+                  "name":"flowFilename",
+                  "in":"query",
+                  "description":"query keyword",
+                  "required":true,
+                  "type":"string",
+                  "example":"File.mp4"
+               },
+               {  
+                  "name":"flowRelativePath",
+                  "in":"query",
+                  "description":"query keyword",
+                  "required":true,
+                  "type":"string",
+                  "example":"File.mp4"
+               },
+               {  
+                  "name":"flowTotalChunks",
+                  "in":"query",
+                  "description":"query keyword",
+                  "required":true,
+                  "type":"string",
+                  "example":"1"
+               }
+
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation"
                },
                "400":{  
                   "description":"Error",
@@ -1276,6 +1471,135 @@
                   "description":"successful operation",
                   "schema":{  
                      "$ref":"#/definitions/file"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         }
+      },
+      "/api/asset/{assetid}":{  
+         "get":{  
+            "tags":[  
+               "file"
+            ],
+            "summary":"Get a file info",
+            "description":"Get a file info",
+            "operationId":"getAsset",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"assetid",
+                  "in":"path",
+                  "description":"ID of the file",
+                  "required":true,
+                  "type":"string",
+                  "example":"2"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/fileclassification"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
+         "post":{  
+            "tags":[  
+               "file"
+            ],
+            "summary":"Post a file info",
+            "description":"Post a file info",
+            "operationId":"postAsset",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"assetid",
+                  "in":"path",
+                  "description":"ID of the file",
+                  "required":true,
+                  "type":"string",
+                  "example":"2"
+               },
+               {  
+                  "in":"body",
+                  "name":"body",
+                  "description":"Post file info",
+                  "required":true,
+                  "schema":{  
+                     "type":"object",
+                     "properties":{  
+                        "classification":{  
+                           "type":"string",
+                           "example":"2"
+                        },
+                        "name":{  
+                           "type":"string",
+                           "example":"File"
+                        }
+                     }
+                  }
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/fileclassification"
+                  }
+               },
+               "400":{  
+                  "description":"Error",
+                  "schema":{  
+                     "type":"string",
+                     "example":"Something went wrong"
+                  }
+               }
+            }
+         },
+         "delete":{  
+            "tags":[  
+               "file"
+            ],
+            "summary":"Delete a file",
+            "description":"Delete a file",
+            "operationId":"deleteAsset",
+            "produces":[  
+               "application/json"
+            ],
+            "parameters":[  
+               {  
+                  "name":"assetid",
+                  "in":"path",
+                  "description":"ID of the file",
+                  "required":true,
+                  "type":"string",
+                  "example":"2"
+               }
+            ],
+            "responses":{  
+               "200":{  
+                  "description":"successful operation",
+                  "schema":{  
+                     "$ref":"#/definitions/fileclassification"
                   }
                },
                "400":{  
@@ -1909,13 +2233,46 @@
             },
             "upload":{
                "type":"string",
-               "example":"-AWEy4kBexpBb5nrQFodimuSlNWz3coU"
+               "example":"fH_AYX37Oy_wajSmY_QrtdRDnMyOnBN7"
             }
          }
       },
       "file":{
          "type":"object",
          "properties":{  
+            "format":{  
+               "type":"integer",
+               "example":-800
+            },
+            "id":{  
+               "type":"integer",
+               "example":2
+            },
+            "name":{
+               "type":"string",
+               "example":"File"
+            },
+            "permission":{  
+               "type":"integer",
+               "example":5
+            },
+            "size":{  
+               "type":"integer",
+               "example":394499
+            },
+            "duration":{  
+               "type":"integer",
+               "example":40000
+            },
+         }
+      },
+      "fileclassification":{
+         "type":"object",
+         "properties":{  
+            "classification":{
+               "type":"integer",
+               "example":2
+            },
             "format":{  
                "type":"integer",
                "example":-800
